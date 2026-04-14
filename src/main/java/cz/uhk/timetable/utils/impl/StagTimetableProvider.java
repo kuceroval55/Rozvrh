@@ -23,6 +23,7 @@ public class StagTimetableProvider  implements TimetableProvider {
             //4. Nacist data rozvrhu pomoci
             return gson.fromJson(new InputStreamReader(server.openStream()),
                     LocationTimetable.class
+
             );
         }
         catch (MalformedURLException ex)
