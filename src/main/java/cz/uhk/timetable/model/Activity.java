@@ -1,26 +1,32 @@
 package cz.uhk.timetable.model;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-public class Activity {
+/**
+ * POJO (Plain Old Java Object) Rozvrhove aktivity
+ */
 
+
+public class Activity {
     private String code;
     private String name;
     private String day;
-    private String startTime;
-    private String endTime;
-    private String getEndTime;
+    private LocalTime StartTime;
+    private LocalTime endTime;
+    private String Teacher;
 
-    public Activity(String pro1, String programovaniI, String pondeli, LocalTime localTime, LocalTime time, String kozel) {
+    public Activity() {
     }
 
-    public Activity(String name, String code, String getEndTime, String endTime, String day, String startTime) {
-        this.name = name;
+    public Activity(String code, String name, String day, LocalTime startTime, LocalTime endTime, String teacher) {
         this.code = code;
-        this.getEndTime = getEndTime;
-        this.endTime = endTime;
+        this.name = name;
         this.day = day;
-        this.startTime = startTime;
+        StartTime = startTime;
+        this.endTime = endTime;
+        Teacher = teacher;
     }
 
     public String getCode() {
@@ -39,35 +45,35 @@ public class Activity {
         this.name = name;
     }
 
-    public String getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
-    }
-
-    public String getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(String endTime) {
-        this.endTime = endTime;
-    }
-
-    public String getGetEndTime() {
-        return getEndTime;
-    }
-
-    public void setGetEndTime(String getEndTime) {
-        this.getEndTime = getEndTime;
-    }
-
     public String getDay() {
         return day;
     }
 
     public void setDay(String day) {
         this.day = day;
+    }
+
+    public LocalTime getStartTime() {
+        return StartTime;
+    }
+
+    public void setStartTime(LocalTime startTime) {
+        StartTime = startTime;
+    }
+
+    public LocalTime getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(LocalTime endTime) {
+        this.endTime = endTime;
+    }
+
+    public String getTeacher() {
+        return Teacher;
+    }
+
+    public void setTeacher(String teacher) {
+        Teacher = teacher;
     }
 }

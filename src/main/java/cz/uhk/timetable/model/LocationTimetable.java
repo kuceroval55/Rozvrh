@@ -7,8 +7,6 @@ public class LocationTimetable {
     private String building;
     private String room;
 
-    private List<Activity> activities = new ArrayList<>();
-
     public LocationTimetable() {
     }
 
@@ -46,4 +44,6 @@ public class LocationTimetable {
     public void setActivities(List<Activity> activities) {
         this.activities = activities;
     }
+
+    private List<Activity> activities = new ArrayList<>();
 }
