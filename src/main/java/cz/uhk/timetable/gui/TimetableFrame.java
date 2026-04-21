@@ -25,6 +25,8 @@ public class TimetableFrame extends JFrame {
 
         tabTimetable = new JTable(new TimetableModel());
 
+        tabTimetable.setAutoCreateRowSorter(true);
+
         add(new JScrollPane(tabTimetable), BorderLayout.CENTER);
 
         pack();
