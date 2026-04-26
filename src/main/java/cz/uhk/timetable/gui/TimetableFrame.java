@@ -13,23 +13,64 @@ public class TimetableFrame extends JFrame {
     private LocationTimetable timetable;
     private TimetableProvider provider = new StagTimetableProvider();
     private JTable tabTimetable;
+    private JComboBox<String> cmbBuilding;
+    private JTextField txfRoom;
+    private JLabel lblBuilding, lblRoom;
+    private JPanel controlPanel;
+    private String[] buildingNames = {"A","B","C","E","F","H","J","P","R","S"};
+    private String selectedBuilding, selectedRoom;
+    private JButton btnLoad;
 
     public TimetableFrame(){
         super("FIM Rozvrhy");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         initGui();
+        initListeners();
     }
 
     private void initGui() {
+        controlPanel = new JPanel();
+        controlPanel.setLayout(new FlowLayout());
+
+        lblBuilding = new JLabel("Budova:");
+        controlPanel.add(lblBuilding);
+
+        cmbBuilding = new JComboBox<>(buildingNames);
+        controlPanel.add(cmbBuilding);
+
+        lblRoom = new JLabel("Místnost:");
+        controlPanel.add(lblRoom);
+
+        txfRoom = new JTextField("", 5);
+        controlPanel.add(txfRoom);
+
+        btnLoad = new JButton("Načíst");
+        controlPanel.add(btnLoad);
+
+        selectedBuilding = String.valueOf(cmbBuilding.getSelectedItem());
+        selectedRoom = txfRoom.getText();
+
+
         timetable = provider.read("J", "J22");
 
         tabTimetable = new JTable(new TimetableModel());
 
         tabTimetable.setAutoCreateRowSorter(true);
 
+        add(controlPanel, BorderLayout.NORTH);
         add(new JScrollPane(tabTimetable), BorderLayout.CENTER);
 
         pack();
+    }
+
+
+
+    private void initListeners() {
+        btnLoad.addActionListener(e -> {selectedBuilding = String.valueOf(cmbBuilding.getSelectedItem());
+            selectedRoom = txfRoom.getText();
+            timetable = provider.read(selectedBuilding, selectedRoom);
+            ((TimetableModel)tabTimetable.getModel()).fireTableDataChanged();
+        });
     }
 
     class TimetableModel extends AbstractTableModel {
