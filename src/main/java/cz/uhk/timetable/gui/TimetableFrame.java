@@ -47,6 +47,7 @@ public class TimetableFrame extends JFrame {
         btnLoad = new JButton("Načíst");
         controlPanel.add(btnLoad);
 
+
         selectedBuilding = String.valueOf(cmbBuilding.getSelectedItem());
         selectedRoom = txfRoom.getText();
 
