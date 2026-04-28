@@ -14,10 +14,13 @@ public class TimetableFrame extends JFrame {
     private TimetableProvider provider = new StagTimetableProvider();
     private JTable tabTimetable;
     private JComboBox<String> cmbBuilding;
-    private JTextField txfRoom;
+    private JComboBox<String> cmbRoom;
     private JLabel lblBuilding, lblRoom;
     private JPanel controlPanel;
+
     private String[] buildingNames = {"A","B","C","E","F","H","J","P","R","S"};
+    private String[] roomNames = {"AULA", "A102", "A205", "F3", "F2", "B1", "B10", "J3", "J22"};
+
     private String selectedBuilding, selectedRoom;
     private JButton btnLoad;
 
@@ -41,21 +44,19 @@ public class TimetableFrame extends JFrame {
         lblRoom = new JLabel("Místnost:");
         controlPanel.add(lblRoom);
 
-        txfRoom = new JTextField("", 5);
-        controlPanel.add(txfRoom);
+        cmbRoom = new JComboBox<>(roomNames);
+        controlPanel.add(cmbRoom);
 
         btnLoad = new JButton("Načíst");
         controlPanel.add(btnLoad);
 
-
+        // Načtení výchozích hodnot
         selectedBuilding = String.valueOf(cmbBuilding.getSelectedItem());
-        selectedRoom = txfRoom.getText();
-
+        selectedRoom = String.valueOf(cmbRoom.getSelectedItem());
 
         timetable = provider.read("J", "J22");
 
         tabTimetable = new JTable(new TimetableModel());
-
         tabTimetable.setAutoCreateRowSorter(true);
 
         add(controlPanel, BorderLayout.NORTH);
@@ -64,11 +65,10 @@ public class TimetableFrame extends JFrame {
         pack();
     }
 
-
-
     private void initListeners() {
-        btnLoad.addActionListener(e -> {selectedBuilding = String.valueOf(cmbBuilding.getSelectedItem());
-            selectedRoom = txfRoom.getText();
+        btnLoad.addActionListener(e -> {
+            selectedBuilding = String.valueOf(cmbBuilding.getSelectedItem());
+            selectedRoom = String.valueOf(cmbRoom.getSelectedItem());
             timetable = provider.read(selectedBuilding, selectedRoom);
             ((TimetableModel)tabTimetable.getModel()).fireTableDataChanged();
         });
